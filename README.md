@@ -1,4 +1,4 @@
-# Final Assignment - A Simple Oracle
+# Final Assignment
 
  - Mohammad Jamshed Qureshi
  - GBC Student: 101260567
