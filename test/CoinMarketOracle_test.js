@@ -39,32 +39,33 @@ contract("CoinMarketOracle",(accounts) => {
 
 contract("Oracle: update CoinMarketCap Data", () => {
   describe("updateCoinMarket(integer)", () => {
-    it("Triggers Oracle event to update data", async () => {
-      const c = await CoinMarketOracleContract.deployed()
-      const expected = "0";
+    describe("when tx is sent by the owner", () => {
+      it("Triggers Oracle event to update data", async () => {
+        const c = await CoinMarketOracleContract.deployed()
+        const expected = "0";
 
-      await c.updateCoinMarket('2781');
-      const actual = await c.getCapVaule('2781');
+        await c.updateCoinMarket('2781');
+        const actual = await c.getCapVaule('2781');
 
-      assert.equal(actual, expected, "market data was not updated");
-    });
-  });
-
-  describe("Set Coin Market data is called by a non-owner account", () => {
-    it("market data update request is not allowed", async () => {
-      const c = await CoinMarketOracleContract.deployed()
-      const expected = await c.getCapVaule('2781');
-
-      try {
-        await c.setCapValue("2781",'1111', { from: accounts[1] });
-      } catch(err) {
-        const errorMessage = "Ownership: caller is not the owner"
-        assert.equal(err.reason, errorMessage, "market data should not update");
-        return;
-      }
-      assert(false, "market data should not update");
+        assert.equal(actual, expected, "market data was not updated");
+      });
     });
 
+    describe("Set Coin Market data is called by a non-owner account", () => {
+      it("market data update request is not allowed", async () => {
+        const c = await CoinMarketOracleContract.deployed()
+        const expected = await c.getCapVaule('2781');
+
+        try {
+          await c.setCapValue("2781",'1111', { from: accounts[1] });
+        } catch(err) {
+          const errorMessage = "Ownership: caller is not the owner"
+          assert.equal(err.reason, errorMessage, "market data should not update");
+          return;
+        }
+        assert(false, "market data should not update");
+      });
+    });
   });
 
 });
