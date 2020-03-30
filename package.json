@@ -1,0 +1,32 @@
+{
+  "name": "gbc_bcdv1013_asc_finalassignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
+    "fetch": "^1.1.0",
+    "truffle-contract": "^4.0.31",
+    "web3": "^1.2.6",
+    "zeppelin-solidity": "^1.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quizoxis/gbc_bcdv1013_asc_finalassignment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quizoxis/gbc_bcdv1013_asc_finalassignment/issues"
+  },
+  "homepage": "https://github.com/quizoxis/gbc_bcdv1013_asc_finalassignment#readme"
+}
