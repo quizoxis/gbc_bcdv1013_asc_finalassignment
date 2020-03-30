@@ -1,19 +1,10 @@
 const CoinMarketOracleContract = artifacts.require("CoinMarketOracle");
 
-contract("CoinMarketOracle", () => {
+contract("CoinMarketOracle",(accounts) => {
 
   it("has been deployed successfully", async () => {
     const c = await CoinMarketOracleContract.deployed();
     assert(c, "contract was not deployed");
-  });
-
-  describe("owner()", () => {
-    it("returns owner's address", async () => {
-      const c = await CoinMarketOracleContract.deployed();
-      const owner = await c.owner();
-
-      assert(owner, "the current owner");
-    });
   });
 
   describe("getCapVaule()", () => {
@@ -24,6 +15,25 @@ contract("CoinMarketOracle", () => {
       assert.equal(actual, expected, "value is null");
     });
   });
+
+  describe("owner()", () => {
+    it("returns owner's address", async () => {
+      const c = await CoinMarketOracleContract.deployed();
+      const owner = await c.owner();
+
+      assert(owner, "the current owner");
+    });
+
+    it("validates deployer address is same as owner address", async () => {
+      const c = await CoinMarketOracleContract.deployed();
+      const ownerAddr = await c.owner();
+      const expected = accounts[0];
+
+      assert.equal(ownerAddr, expected, "deployer and owner adresses are the same");
+    });
+
+  });
+
 
 });
 
