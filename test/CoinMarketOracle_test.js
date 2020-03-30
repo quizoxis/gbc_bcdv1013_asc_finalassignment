@@ -19,14 +19,14 @@ contract("CoinMarketOracle",(accounts) => {
   describe("owner()", () => {
     it("returns owner's address", async () => {
       const c = await CoinMarketOracleContract.deployed();
-      const owner = await c.owner();
+      const owner = await c._owner();
 
       assert(owner, "the current owner");
     });
 
     it("validates deployer address is same as owner address", async () => {
       const c = await CoinMarketOracleContract.deployed();
-      const ownerAddr = await c.owner();
+      const ownerAddr = await c._owner();
       const expected = accounts[0];
 
       assert.equal(ownerAddr, expected, "deployer and owner adresses are the same");
@@ -49,4 +49,22 @@ contract("Oracle: update CoinMarketCap Data", () => {
       assert.equal(actual, expected, "market data was not updated");
     });
   });
+
+  describe("Update Coin Market data request is sent by a non-owner account", () => {
+    it("market data update request is not allowed", async () => {
+      const c = await CoinMarketOracleContract.deployed()
+      const expected = await c.getCapVaule('2781');
+
+      try {
+        await c.updateCoinMarket("2781", { from: accounts[1] });
+      } catch(err) {
+        const errorMessage = "Ownership: caller is not the owner"
+        assert.equal(err.reason, errorMessage, "market data should not update");
+        return;
+      }
+      assert(false, "market cap data should not update");
+    });
+
+  });
+
 });

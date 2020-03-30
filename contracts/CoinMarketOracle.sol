@@ -2,37 +2,37 @@ pragma solidity ^0.4.24;
 
 contract CoinMarketOracle {
 
-  address public owner;
-  bool internal online;
+  address public _owner;
+  bool internal _online;
 
   mapping (uint => uint ) private CoinMarketCap;
 
   modifier onlyOwner(){
-    require(msg.sender == owner);
+    require(msg.sender == _owner);
     _;
   }
 
   modifier isOnline() {
-    require(online == true, 'Oracle is currently offline!');
+    require(_online == true, 'Oracle is currently offline!');
     _;
   }
 
   event CoinMarketUpdateRequest(address requestBy, uint capId);
 
   constructor() public {
-      owner = msg.sender;
-      online = true;
+      _owner = msg.sender;
+      _online = true;
   }
 
   function getStatus() public view returns(bool) {
-      return online;
+      return _online;
   }
   function setOnline() public onlyOwner {
-      online = true;
+      _online = true;
   }
 
   function setOffline() public onlyOwner {
-      online = false;
+      _online = false;
   }
 
 
