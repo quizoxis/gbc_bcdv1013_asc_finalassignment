@@ -50,19 +50,19 @@ contract("Oracle: update CoinMarketCap Data", () => {
     });
   });
 
-  describe("Update Coin Market data request is sent by a non-owner account", () => {
+  describe("Set Coin Market data is called by a non-owner account", () => {
     it("market data update request is not allowed", async () => {
       const c = await CoinMarketOracleContract.deployed()
       const expected = await c.getCapVaule('2781');
 
       try {
-        await c.updateCoinMarket("2781", { from: accounts[1] });
+        await c.setCapValue("2781",'1111', { from: accounts[1] });
       } catch(err) {
         const errorMessage = "Ownership: caller is not the owner"
         assert.equal(err.reason, errorMessage, "market data should not update");
         return;
       }
-      assert(false, "market cap data should not update");
+      assert(false, "market data should not update");
     });
 
   });

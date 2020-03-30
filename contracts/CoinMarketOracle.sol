@@ -8,7 +8,7 @@ contract CoinMarketOracle {
   mapping (uint => uint ) private CoinMarketCap;
 
   modifier onlyOwner(){
-    require(msg.sender == _owner);
+    require(msg.sender == _owner, "Ownership: caller is not the owner");
     _;
   }
 
